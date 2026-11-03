@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¡Aventura del Presente Simple!</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--ink:#2b2250;--pink:#7c3aed;--blue:#2f9bff;--yellow:#ffd23f;--green:#2ecc9a;--purple:#4f46e5;--orange:#9b6bff}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:'Fredoka','Trebuchet MS','Comic Sans MS',sans-serif;color:var(--ink);background:linear-gradient(135deg,#e6dcff,#d8f1ff 50%,#dde6ff);min-height:100vh;overflow-x:hidden}
+.fl{position:fixed;font-size:2.2rem;opacity:.35;animation:fl 7s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes fl{50%{transform:translateY(-30px) rotate(15deg)}}
+header{position:relative;z-index:1;text-align:center;padding:18px 10px 6px}
+h1{margin:0;font-size:clamp(1.8rem,6vw,3.2rem);background:linear-gradient(90deg,var(--pink),var(--orange),var(--purple),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;animation:bn 2s ease-in-out infinite}
+@keyframes bn{50%{transform:scale(1.05)}}
+.sc{display:inline-block;background:#fff;border-radius:30px;padding:6px 18px;font-weight:700;box-shadow:0 4px 0 #ffd23f;margin-top:8px}
+nav{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:10px}
+nav button{font:inherit;font-weight:600;border:0;border-radius:20px;padding:10px 14px;color:#fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.2);transition:.15s}
+nav button:nth-child(1){background:var(--pink)}nav button:nth-child(2){background:var(--blue)}nav button:nth-child(3){background:var(--green)}nav button:nth-child(4){background:var(--orange)}nav button:nth-child(5){background:var(--purple)}nav button:nth-child(6){background:#3b82f6}nav button:nth-child(7){background:#19b5a5}
+nav button:hover{transform:translateY(-3px) rotate(-2deg)}nav button.on{outline:4px solid var(--ink)}
+main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:8px 12px 50px}
+.sec{display:none}.sec.on{display:block;animation:pop .4s}
+@keyframes pop{from{opacity:0;transform:scale(.92) translateY(15px)}}
+h2{font-size:1.7rem;margin:10px 0}
+.card{background:#fff;border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 6px 0 rgba(138,92,255,.25);border:3px solid #fff}
+.card.c1{border-color:var(--pink)}.card.c2{border-color:var(--blue)}.card.c3{border-color:var(--green)}.card.c4{border-color:var(--orange)}.card.c5{border-color:var(--purple)}
+.big{font-size:1.15rem;line-height:1.55}
+.pill{display:inline-block;border-radius:16px;padding:4px 12px;margin:3px;font-weight:700;color:#fff}
+.p1{background:var(--blue)}.p2{background:var(--pink)}.p3{background:var(--green)}
+.s{color:var(--pink);font-weight:700;text-decoration:underline wavy}
+.ex{display:flex;align-items:center;gap:8px;margin:6px 0;background:#f4f0ff;border-radius:14px;padding:8px 12px;flex-wrap:wrap}
+.ex small{color:#6d6490;flex-basis:100%}
+.sp,.chk,.big-btn{font:inherit;border:0;border-radius:14px;cursor:pointer;font-weight:700}
+.sp{background:var(--yellow);padding:4px 10px;font-size:1.1rem;box-shadow:0 3px 0 #d4a900}
+.sp:hover{transform:scale(1.15)}
+.chk{background:var(--green);color:#fff;padding:8px 14px;box-shadow:0 4px 0 #1c9a57;margin-top:6px}
+.chk:active,.sp:active{transform:translateY(3px);box-shadow:none}
+.big-btn{background:var(--purple);color:#fff;padding:10px 18px;box-shadow:0 4px 0 #5a35c4}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt,.tf{font:inherit;font-weight:600;font-size:1.05rem;border:3px solid var(--blue);background:#eaf8ff;border-radius:14px;padding:8px 14px;cursor:pointer;transition:.15s}
+.opt:hover,.tf:hover{transform:scale(1.06)}
+.opt.sel{background:var(--blue);color:#fff;transform:scale(1.08)}
+.tf{margin-right:8px;border-color:var(--purple);background:#f1ebff}
+.q{font-size:1.15rem;font-weight:600;margin:0 0 8px}
+.fb{display:inline-block;margin-left:8px;font-weight:700}
+.in{font:inherit;font-size:1.1rem;font-weight:700;width:9ch;text-align:center;border:3px dashed var(--purple);border-radius:12px;padding:4px;margin:0 6px;color:var(--ink);background:#fffdf0}
+.in:focus{outline:none;border-style:solid;border-color:var(--orange);background:#fff}
+.in.good{border-color:var(--green);background:#e5ffef}
+.in.wide{width:100%;max-width:440px;margin:6px 0}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:1.1rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.voc{background:#fff7d6;border-radius:16px;padding:10px 12px;cursor:pointer;border:3px solid var(--yellow);font:inherit;font-weight:600;transition:.15s}
+.voc:hover{transform:rotate(-4deg) scale(1.08)}
+.voc b{display:block;font-size:1.1rem}
+.mem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mc{font:inherit;font-weight:700;font-size:clamp(1rem,4.5vw,1.6rem);aspect-ratio:1;border:0;border-radius:18px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.mc.on{background:#fff;color:var(--ink);border:4px solid var(--blue);animation:pop .3s}
+.mc.done{background:#d9ffe8;border:4px solid var(--green);color:var(--ink)}
+.ws{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-width:420px;margin:10px auto}
+.ws button{font:inherit;font-weight:700;font-size:clamp(1rem,5vw,1.5rem);aspect-ratio:1;border:0;border-radius:10px;background:#e9e2ff;color:var(--ink);cursor:pointer;padding:0}
+.ws button.st{background:var(--yellow)}.ws button.found{background:var(--green);color:#fff}
+.cl{display:inline-block;background:#fff;border:3px solid var(--orange);border-radius:14px;padding:6px 10px;margin:4px;font-weight:600}
+.cl.found{background:#d9ffe8;border-color:var(--green);text-decoration:line-through}
+select{font:inherit;font-weight:700;font-size:1.1rem;border:3px solid var(--blue);border-radius:12px;padding:6px}
+.out{font-size:2rem;font-weight:700;text-align:center;min-height:3rem;margin:10px 0}
+.cf{position:fixed;top:-40px;font-size:2rem;z-index:50;pointer-events:none;animation:cf 2s linear forwards}
+@keyframes cf{to{transform:translateY(110vh) rotate(540deg)}}
+@media(max-width:520px){nav button{padding:8px 10px;font-size:.9rem}.in{width:8ch}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<span class="fl" style="left:4%;top:20%">🌈</span><span class="fl" style="right:5%;top:35%;animation-delay:1s">⭐</span><span class="fl" style="left:8%;top:70%;animation-delay:2s">🦄</span><span class="fl" style="right:8%;top:80%;animation-delay:3s">🎈</span>
+<header>
+<h1>🎉 ¡Aventura del Presente Simple! 🎉</h1>
+<div class="sc">Tus estrellas: ⭐ <span id="stars">0</span></div>
+</header>
+<nav>
+<button data-go="learn" class="on">📚 Aprende</button>
+<button data-go="quiz">🧠 Quiz</button>
+<button data-go="write">✏️ Escribe</button>
+<button data-go="tf">🤪 Frases locas</button>
+<button data-go="memo">🃏 Memoria</button>
+<button data-go="wsec">🔎 Sopa de letras</button>
+<button data-go="mag">🪄 Máquina mágica</button>
+</nav>
+<main>
+
+<section class="sec on" id="learn">
+<h2>📚 ¡Vamos a aprender!</h2>
+<p class="big">Toca los botones 🔊 para escuchar cómo se dice cada cosa en inglés americano.</p>
+
+<div class="card c1 big">
+<h3>1️⃣ ¿Para qué sirve el Presente Simple?</h3>
+Lo usamos para hablar de cosas que haces <b>siempre o muchas veces</b>: tus rutinas 🕒, lo que te gusta ❤️ y cosas que son verdad 🌍.
+<div class="ex"><span>I eat breakfast every day.</span><button class="sp" data-say="I eat breakfast every day.">🔊</button><small>Yo como el desayuno todos los días.</small></div>
+<div class="ex"><span>The sun is hot.</span><button class="sp" data-say="The sun is hot.">🔊</button><small>El sol es caliente (algo que siempre es verdad).</small></div>
+</div>
+
+<div class="card c2 big">
+<h3>2️⃣ La regla de oro: ¡la letra S!</h3>
+<span class="pill p1">I (yo)</span><span class="pill p1">You (tú)</span><span class="pill p1">We (nosotros)</span><span class="pill p1">They (ellos)</span> → el verbo queda <b>normal</b>.
+<div class="ex"><span>I play soccer.</span><button class="sp" data-say="I play soccer.">🔊</button><small>Yo juego fútbol.</small></div>
+<div class="ex"><span>They play soccer.</span><button class="sp" data-say="They play soccer.">🔊</button><small>Ellos juegan fútbol.</small></div>
+<span class="pill p2">He (él)</span><span class="pill p2">She (ella)</span><span class="pill p2">It (eso / animal / cosa)</span> → ¡al verbo le ponemos una <span class="s">S</span>!
+<div class="ex"><span>She play<span class="s">s</span> soccer.</span><button class="sp" data-say="She plays soccer.">🔊</button><small>Ella juega fútbol.</small></div>
+<div class="ex"><span>The dog eat<span class="s">s</span> a bone.</span><button class="sp" data-say="The dog eats a bone.">🔊</button><small>El perro come un hueso. (Un solo perro = it).</small></div>
+</div>
+
+<div class="card c3 big">
+<h3>3️⃣ Trucos especiales con he / she / it</h3>
+<p>🔸 Si el verbo termina en <b>-ch, -sh, -s, -x, -o</b> → agregamos <span class="s">-es</span>.</p>
+<div class="ex"><span>watch → he watch<span class="s">es</span></span><button class="sp" data-say="He watches TV.">🔊</button></div>
+<div class="ex"><span>wash → she wash<span class="s">es</span></span><button class="sp" data-say="She washes the dishes.">🔊</button></div>
+<div class="ex"><span>go → it go<span class="s">es</span></span><button class="sp" data-say="It goes fast.">🔊</button></div>
+<p>🔸 Si termina en <b>consonante + y</b> → quitamos la y y ponemos <span class="s">-ies</span>.</p>
+<div class="ex"><span>study → she stud<span class="s">ies</span></span><button class="sp" data-say="She studies English.">🔊</button></div>
+<div class="ex"><span>fly → it fl<span class="s">ies</span></span><button class="sp" data-say="The bird flies.">🔊</button></div>
+<p>🔸 Un caso rarito: <b>have → has</b> (He <span class="s">has</span> a toy).</p>
+<div class="ex"><span>He has a toy.</span><button class="sp" data-say="He has a toy.">🔊</button></div>
+</div>
+
+<div class="card c4 big">
+<h3>4️⃣ Decir «NO» (negativo) 🚫</h3>
+Usamos <b>don’t</b> con I, you, we, they y <b>doesn’t</b> con he, she, it. ¡Atención! Después de don’t o doesn’t el verbo vuelve a ser normal, <b>sin S</b>.
+<div class="ex"><span>I don’t like spiders.</span><button class="sp" data-say="I don't like spiders.">🔊</button><small>No me gustan las arañas 🕷️.</small></div>
+<div class="ex"><span>She doesn’t like spiders.</span><button class="sp" data-say="She doesn't like spiders.">🔊</button><small>A ella no le gustan (¡sin S en like!).</small></div>
+</div>
+
+<div class="card c5 big">
+<h3>5️⃣ Hacer preguntas ❓</h3>
+Ponemos <b>Do</b> (I, you, we, they) o <b>Does</b> (he, she, it) al principio. El verbo queda normal, sin S.
+<div class="ex"><span>Do you like pizza?</span><button class="sp" data-say="Do you like pizza?">🔊</button><small>¿Te gusta la pizza? 🍕</small></div>
+<div class="ex"><span>Does he play games?</span><button class="sp" data-say="Does he play games?">🔊</button><small>¿Él juega videojuegos? 🎮</small></div>
+</div>
+
+<div class="card c1 big">
+<h3>6️⃣ Palabras mágicas ✨ (¿cada cuánto?)</h3>
+<div class="chips">
+<button class="voc" data-say="always"><b>always</b>siempre (100%)</button>
+<button class="voc" data-say="usually"><b>usually</b>normalmente</button>
+<button class="voc" data-say="sometimes"><b>sometimes</b>a veces</button>
+<button class="voc" data-say="never"><b>never</b>nunca (0%)</button>
+</div>
+<div class="ex"><span>He always brushes his teeth.</span><button class="sp" data-say="He always brushes his teeth.">🔊</button><small>Él siempre se cepilla los dientes 🪥.</small></div>
+<div class="ex"><span>I never eat worms.</span><button class="sp" data-say="I never eat worms.">🔊</button><small>Yo nunca como gusanos 🪱.</small></div>
+</div>
+
+<div class="card c2">
+<h3>🗣️ Verbos para practicar (¡toca para escuchar!)</h3>
+<div class="chips" id="voc"></div>
+</div>
+</section>
+
+<section class="sec" id="quiz">
+<h2>🧠 Quiz: elige la respuesta correcta</h2>
+<p class="big">Toca una opción y luego el botón verificar. ¡Puedes intentarlo las veces que quieras!</p>
+<div id="qz"></div>
+</section>
+
+<section class="sec" id="write">
+<h2>✏️ Escribe UNA palabra</h2>
+<p class="big">Completa cada espacio con <b>una sola palabra</b>. Después toca verificar.</p>
+<h3>🌟 Parte 1: Completa la frase</h3>
+<div id="fa"></div>
+<h3>🌟 Parte 2: ¿Cómo se dice en inglés?</h3>
+<div id="fb"></div>
+<h3>🌟 Parte 3: ¡Escribe tus propias oraciones!</h3>
+<p class="big">Ahora puedes escribir oraciones completas. Usa las palabras que te pedimos, sin olvidar la S cuando toca. ¡Tú puedes! 💪</p>
+<div id="fc"></div>
+</section>
+
+<section class="sec" id="tf">
+<h2>🤪 Frases locas</h2>
+<p class="big">Estas frases son muy graciosas, pero ¡lo importante es la gramática! ¿Está bien escrita o tiene un error?</p>
+<div id="tfl"></div>
+</section>
+
+<section class="sec" id="memo">
+<h2>🃏 Juego de memoria</h2>
+<p class="big">Encuentra cada dibujo con su palabra en inglés. Jugadas: <b id="mv">0</b> <button class="big-btn" id="rm">🔄 Nuevo juego</button></p>
+<div class="mem" id="mem"></div>
+</section>
+
+<section class="sec" id="wsec">
+<h2>🔎 Sopa de letras</h2>
+<p class="big">Encuentra las palabras en inglés. Toca la <b>primera letra</b> y luego la <b>última</b> (en línea recta: →, ↓ o ↘).</p>
+<div id="cls"></div>
+<div class="ws" id="ws"></div>
+<button class="big-btn" id="rw">🔄 Nueva sopa</button>
+</section>
+
+<section class="sec" id="mag">
+<h2>🪄 Máquina mágica de verbos</h2>
+<p class="big">Elige un verbo y toca un pronombre. ¡Mira cuándo aparece la S mágica!</p>
+<div class="card c5">
+<select id="mv2"></select>
+<div class="chips" id="pr" style="margin-top:10px"></div>
+<div class="out" id="mo">👆 ¡Toca un pronombre!</div>
+</div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let stars=0;const done=new Set();
+function award(id){if(!done.has(id)){done.add(id);stars++;$('#stars').textContent=stars}}
+let AC;
+function tone(f,d,t){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=t||'sine';o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(AC.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.stop(AC.currentTime+d)}catch(e){}}
+function confetti(){const E=['🎉','⭐','✨','🎈','🌈'];for(let i=0;i<18;i++){const s=document.createElement('span');s.className='cf';s.textContent=E[i%5];s.style.left=Math.random()*95+'vw';s.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2600)}}
+function ok(){tone(660,.15);setTimeout(()=>tone(880,.25),120);confetti()}
+function bad(){tone(180,.3,'square')}
+function say(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';const v=speechSynthesis.getVoices().find(v=>v.lang==='en-US');if(v)u.voice=v;u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+try{speechSynthesis.getVoices()}catch(e){}
+
+/* Vocabulario */
+const V=[["eat","🍽️","comer"],["drink","🥤","beber"],["sleep","😴","dormir"],["run","🏃","correr"],["read","📖","leer"],["play","⚽","jugar"],["swim","🏊","nadar"],["sing","🎤","cantar"]];
+const VOC=V.concat([["jump","🦘","saltar"],["watch","📺","mirar"],["go","🚶","ir"],["study","✏️","estudiar"]]);
+$('#voc').innerHTML=VOC.map(v=>`<button class="voc" data-say="${v[0]}">${v[1]}<b>${v[0]}</b>${v[2]}</button>`).join('');
+
+/* Navegación */
+$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');$$('.sec').forEach(s=>s.classList.toggle('on',s.id===b.dataset.go));window.scrollTo({top:0,behavior:'smooth'})});
+
+/* Quiz */
+const Q=[["She ___ to school every day.",["go","goes","going"],1],["I ___ pizza.",["likes","like","liking"],1],["My dog ___ bones.",["eat","eats","eating"],1],["They ___ football on Sunday.",["play","plays","playing"],0],["He ___ TV at night.",["watch","watchs","watches"],2],["We ___ milk.",["drinks","drink","drinking"],1],["The cat ___ a lot.",["sleeps","sleep","sleeping"],0],["She ___ like homework.",["don’t","doesn’t","isn’t"],1],["I ___ like broccoli.",["don’t","doesn’t","not"],0],["___ you play games?",["Do","Does","Is"],0],["___ he like pizza?",["Do","Does","Are"],1],["Mom ___ the dishes.",["washs","washes","wash"],1],["My sister ___ English.",["study","studys","studies"],2],["The sun ___ in the morning.",["rises","rise","rising"],0],["My brother ___ his bike to school.",["ride","rides","riding"],1],["___ she like cats?",["Do","Does","Is"],1],["We ___ play in the rain.",["don’t","doesn’t","not"],0],["The bird ___ in the sky.",["fly","flys","flies"],2],["He ___ a new toy.",["have","has","haves"],1],["Birds ___ songs in the morning.",["sing","sings","singing"],0]];
+$('#qz').innerHTML=Q.map((x,i)=>`<div class="card c${i%5+1}"><p class="q">${i+1}. ${x[0]}</p><div class="opts">${x[1].map((o,j)=>`<button class="opt" data-o="${j}">${o}</button>`).join('')}</div><button class="chk" data-qc="${i}">Verificar ✅</button><span class="fb"></span></div>`).join('');
+
+/* Escritura */
+const FA={};
+const A=[["He "," soccer. (play)","plays"],["They "," apples. (eat)","eat"],["She "," TV. (watch)","watches"],["My dad "," to work. (go)","goes"],["I "," ice cream. (like)","like"],["The bird "," . (fly)","flies"],["She "," a lot. (study)","studies"],["We "," in the park. (run)","run"],["The cat "," all day. (sleep)","sleeps"],["Mom "," the car. (wash)","washes"],["He "," not like fish. (do / does)","does"],["I "," not like spiders. (do / does)","do"],["","she sing? (do / does)","does"],["","they swim? (do / does)","do"]];
+const B=[["🍽️ comer = ","","eat"],["🥤 beber = ","","drink"],["😴 dormir = ","","sleep"],["🏃 correr = ","","run"],["📖 leer = ","","read"],["🦘 saltar = ","","jump"],["🏊 nadar = ","","swim"],["🎤 cantar = ","","sing"]];
+function rf(list,el,p){$(el).innerHTML=list.map((x,i)=>{FA[p+i]=x[2];return`<div class="card row"><span>${x[0]}<input class="in" id="${p}${i}" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="12">${x[1]}</span><button class="chk" data-f="${p}${i}">Verificar ✅</button><span class="fb"></span></div>`}).join('')}
+rf(A,'#fa','a');rf(B,'#fb','b');
+const G=[["🙋 Escribe sobre ti usando <b>I</b> y el verbo <b>like</b>.",[/\bi\b/,/\blike\b/]],["👧 Escribe sobre una amiga usando <b>She</b> y el verbo <b>play</b>.",[/\bshe\b/,/\bplays\b/]],["👦 Escribe sobre un amigo usando <b>He</b> y el verbo <b>eat</b>.",[/\bhe\b/,/\beats\b/]],["🐶 Escribe sobre tu mascota usando <b>My dog</b> y el verbo <b>sleep</b>.",[/\bmy dog\b/,/\bsleeps\b/]],["🚫 Escribe una oración negativa usando <b>I</b> y <b>don’t</b>.",[/\bi\b/,/\b(don'?t|do not)\b/]],["❓ Escribe una pregunta usando <b>Does</b> y <b>he</b>.",[/\bdoes\b/,/\bhe\b/,/\?/]]];
+$('#fc').innerHTML=G.map((x,i)=>`<div class="card c${i%5+1}"><p class="q">${i+1}. ${x[0]}</p><input class="in wide" id="g${i}" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength=80><br><button class="chk" data-g="${i}">Verificar ✅</button><span class="fb"></span></div>`).join('');
+
+/* Frases locas */
+const T=[["The dog eats pizza. 🐶🍕",1],["The cat sing songs. 🐱🎶",0],["My teacher dances on the table. 💃",1],["I plays with robots. 🤖",0],["Elephants flies to the moon. 🐘🌙",0],["We eat ice cream for breakfast. 🍦",1],["She don’t like homework. 📚",0],["A fish doesn’t ride a bike. 🐟🚲",1],["He watch cartoons. 📺",0],["Do monkeys love bananas? 🐒🍌",1]];
+$('#tfl').innerHTML=T.map((t,i)=>`<div class="card c${i%5+1}"><p class="q">${t[0]} <button class="sp" data-say="${t[0].replace(/[^\x20-\x7E’]/g,'')}">🔊</button></p><button class="tf" data-tf="${i}" data-v="1">✅ Está bien</button><button class="tf" data-tf="${i}" data-v="0">❌ Tiene error</button><span class="fb"></span></div>`).join('');
+
+/* Memoria */
+let deck,first,lock,matched,moves;
+function mem(){deck=[];V.forEach((v,i)=>{deck.push({i,c:v[1]},{i,c:v[0]})});deck.sort(()=>Math.random()-.5);matched=0;moves=0;first=null;lock=false;$('#mv').textContent=0;$('#mem').innerHTML=deck.map((d,k)=>`<button class="mc" data-m="${k}">❓</button>`).join('')}
+$('#mem').onclick=e=>{const b=e.target.closest('.mc');if(!b||lock||b.classList.contains('on')||b.classList.contains('done'))return;const k=+b.dataset.m,d=deck[k];b.textContent=d.c;b.classList.add('on');tone(520,.1);if(first===null){first=k;return}
+const a=first,ab=$$('.mc')[a];first=null;moves++;$('#mv').textContent=moves;
+if(deck[a].i===d.i){[ab,b].forEach(x=>{x.classList.remove('on');x.classList.add('done')});matched++;ok();say(V[d.i][0]);if(matched===V.length)setTimeout(()=>{confetti();tone(990,.5)},500)}
+else{lock=true;bad();setTimeout(()=>{[ab,b].forEach(x=>{x.textContent='❓';x.classList.remove('on')});lock=false},900)}};
+$('#rm').onclick=mem;mem();
+
+/* Sopa de letras */
+const W=[["EAT","🍽️","comer"],["RUN","🏃","correr"],["PLAY","⚽","jugar"],["READ","📖","leer"],["SING","🎤","cantar"],["SWIM","🏊","nadar"],["JUMP","🦘","saltar"]];
+const N=8;let g,sel,fw;
+function ws(){g=Array.from({length:N},()=>Array(N).fill(''));sel=null;fw=new Set();const D=[[0,1],[1,0],[1,1]];
+W.forEach(([w])=>{for(let t=0;t<800;t++){const d=D[Math.random()*3|0],r=Math.random()*N|0,c=Math.random()*N|0;if(r+d[0]*(w.length-1)>=N||c+d[1]*(w.length-1)>=N)continue;let f=1;for(let k=0;k<w.length;k++){const x=g[r+d[0]*k][c+d[1]*k];if(x&&x!==w[k])f=0}if(!f)continue;for(let k=0;k<w.length;k++)g[r+d[0]*k][c+d[1]*k]=w[k];break}});
+const L='ABCDEFGHIJKLMNOPQRSTUVWXYZ';let h='';
+for(let r=0;r<N;r++)for(let c=0;c<N;c++){if(!g[r][c])g[r][c]=L[Math.random()*26|0];h+=`<button data-r="${r}" data-c="${c}">${g[r][c]}</button>`}
+$('#ws').innerHTML=h;
+$('#cls').innerHTML=W.map(w=>`<span class="cl" id="cl${w[0]}">${w[1]} ${w[2]} (${w[0].length} letras)</span>`).join('')}
+$('#ws').onclick=e=>{const b=e.target.closest('button');if(!b)return;const r=+b.dataset.r,c=+b.dataset.c;
+if(!sel){sel=[r,c];b.classList.add('st');return}
+const cells=$$('#ws button');cells.forEach(x=>x.classList.remove('st'));
+const dr=r-sel[0],dc=c-sel[1],n=Math.max(Math.abs(dr),Math.abs(dc));
+let hit=null,idx=[];
+if(n>0&&(dr===0||dc===0||Math.abs(dr)===Math.abs(dc))){let s='';for(let k=0;k<=n;k++){const rr=sel[0]+Math.sign(dr)*k,cc=sel[1]+Math.sign(dc)*k;s+=g[rr][cc];idx.push(rr*N+cc)}
+const rs=[...s].reverse().join('');hit=W.find(w=>!fw.has(w[0])&&(w[0]===s||w[0]===rs))}
+sel=null;
+if(hit){fw.add(hit[0]);idx.forEach(i=>cells[i].classList.add('found'));$('#cl'+hit[0]).classList.add('found');award('ws'+hit[0]);ok();say(hit[0].toLowerCase());if(fw.size===W.length)setTimeout(()=>{confetti();tone(990,.5)},600)}
+else bad()};
+$('#rw').onclick=ws;ws();
+
+/* Máquina mágica */
+const VM={play:"plays",eat:"eats",watch:"watches",go:"goes",study:"studies",fly:"flies",have:"has",sing:"sings",wash:"washes"};
+$('#mv2').innerHTML=Object.keys(VM).map(k=>`<option>${k}</option>`).join('');
+$('#pr').innerHTML=['I','You','We','They','He','She','It'].map((p,i)=>`<button class="pill ${i<4?'p1':'p2'}" style="border:0;font:inherit;font-weight:700;cursor:pointer;font-size:1.1rem" data-p="${p}">${p}</button>`).join('');
+$('#pr').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;const p=b.dataset.p,v=$('#mv2').value,third=['He','She','It'].includes(p),f=third?VM[v]:v;
+$('#mo').innerHTML=`${p} <span style="color:${third?'var(--pink)':'var(--blue)'}">${f}</span>${third?' ✨':''}`;tone(third?740:520,.2);say(p+' '+f)};
+
+/* Clics generales */
+document.addEventListener('click',e=>{
+const sp=e.target.closest('[data-say]');if(sp)say(sp.dataset.say);
+const o=e.target.closest('.opt');if(o){o.parentNode.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');tone(440,.08)}
+const qc=e.target.closest('[data-qc]');if(qc){const i=+qc.dataset.qc,card=qc.parentNode,s=card.querySelector('.sel'),fb=card.querySelector('.fb');
+if(!s){fb.textContent='Elige una opción primero 👆';return}
+if(+s.dataset.o===Q[i][2]){fb.textContent='¡Correcto! 🎉';ok();award('q'+i);say(Q[i][0].replace('___',Q[i][1][Q[i][2]]).replace('’',"'"))}
+else{fb.textContent='¡Casi! Intenta otra vez 💪';bad()}}
+const f=e.target.closest('[data-f]');if(f){const id=f.dataset.f,inp=$('#'+id),v=inp.value.trim().toLowerCase().replace(/[^a-z]/g,''),fb=f.nextElementSibling;
+if(!v){fb.textContent='Escribe una palabra ✏️';return}
+if(v===FA[id]){fb.textContent='¡Correcto! 🎉';inp.classList.add('good');ok();award(id);say(FA[id])}
+else{fb.textContent='Casi… ¡intenta otra vez! 💪';bad()}}
+const t=e.target.closest('[data-tf]');if(t){const i=+t.dataset.tf,fb=t.parentNode.querySelector('.fb');
+if((t.dataset.v==='1')===!!T[i][1]){fb.textContent='¡Muy bien! 🎉';ok();award('t'+i)}
+else{fb.textContent='Mmm, mira bien el verbo 🔍';bad()}}
+const gc=e.target.closest('[data-g]');if(gc){const i=+gc.dataset.g,inp=$('#g'+i),fb=gc.nextElementSibling,v=inp.value.trim().toLowerCase().replace(/[’‘]/g,"'");
+if(v.split(/\s+/).length<3){fb.textContent='Escribe una oración completa ✏️';return}
+if(G[i][1].every(r=>r.test(v))){fb.textContent='¡Excelente oración! 🎉';inp.classList.add('good');ok();award('g'+i);say(v)}
+else{fb.textContent='Casi… revisa las palabras que debes usar y la S 🔍';bad()}}
+});
+</script>
+</body>
+</html>
